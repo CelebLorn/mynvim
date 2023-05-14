@@ -30,6 +30,9 @@ repo='vim-airline/vim-airline'
 hook_add=''' 
 	let g:airline#extensions#tabline#enabled = 1 
     let g:airline#extensions#tabline#formatter = 'jsformatter'
+    " バッファ移動
+    nmap <C-p> <Plug>AirlineSelectPrevTab
+    nmap <C-n> <Plug>AirlineSelectNextTab
 ''' 
 
 
