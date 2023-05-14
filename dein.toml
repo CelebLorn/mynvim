@@ -2,30 +2,10 @@
 [[plugins]] 
 repo='Shougo/dein.vim'
 
+# deinのui
 [[plugins]] 
 repo='wsdjeg/dein-ui.vim' 
 depends='dein.vim' 
-# 括弧の色付け 
-[[plugins]] 
-repo='luochen1990/rainbow' 
-hook_add=''' 
-    let g:rainbow_conf = {
-    \	'separately': {
-    \		'*': {},
-    \		'mugen': {
-    \			'parentheses': ['start=/(/ end=/)/ fold'], 
-    \		},
-    \	}
-    \}
-''' 
-# migemo検索 
-[[plugins]] 
-repo='rhysd/migemo-search.vim' 
-hook_add=''' 
-	if executable('cmigemo') 
-		cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>" 
-	endif 
-''' 
 # ホップアップの強化 
 [[plugins]] 
 repo='Shougo/pum.vim' 
@@ -37,18 +17,7 @@ hook_add='''
 	inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR> 
 	inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR> 
 ''' 
-# ステータスライン 
-[[plugins]] 
-repo='vim-airline/vim-airline' 
-hook_add=''' 
-	let g:airline#extensions#tabline#enabled = 1 
-''' 
-[[plugins]] 
-repo='vim-airline/vim-airline-themes' 
-depends='vim-airline/vim-airline' 
-hook_add=''' 
-	let g:airline_theme='codedark' 
-''' 
+
 # vscodeみたいなカラースキーム 
 [[plugins]] 
 repo='tomasiser/vim-code-dark' 
@@ -56,6 +25,22 @@ hook_add = '''
 	set background=dark 
     au MyAutoCmd VimEnter * nested colorscheme codedark
 '''
+
+# ステータスライン 
+[[plugins]] 
+repo='vim-airline/vim-airline' 
+hook_add=''' 
+	let g:airline#extensions#tabline#enabled = 1 
+    let g:airline#extensions#tabline#formatter = 'jsformatter'
+''' 
+
+[[plugins]] 
+repo='vim-airline/vim-airline-themes' 
+depends='vim-airline/vim-airline' 
+hook_add=''' 
+	let g:airline_theme='codedark' 
+''' 
+
 
 # ddcの依存
 [[plugins]]
@@ -165,3 +150,12 @@ on_source = 'ddc.vim'
 hook_add='''
     call ddc#custom#patch_global('ui', 'native')
 '''
+
+# migemo検索 
+[[plugins]] 
+repo='rhysd/migemo-search.vim' 
+hook_add=''' 
+	if executable('cmigemo') 
+		cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>" 
+	endif 
+''' 

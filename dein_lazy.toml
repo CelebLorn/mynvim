@@ -33,3 +33,19 @@ hook_add='''
     " Tell Neosnippet about the other snippets
     let g:neosnippet#snippets_directory=$VIM .. '\snippets'
 '''
+
+
+
+# 括弧の色付け 
+[[plugins]] 
+repo='luochen1990/rainbow' 
+hook_add=''' 
+    let g:rainbow_conf = {
+    \	'separately': {
+    \		'*': {},
+    \		'mugen': {
+    \			'parentheses': ['start=/(/ end=/)/ fold'], 
+    \		},
+    \	}
+    \}
+''' 
