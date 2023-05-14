@@ -5,10 +5,16 @@ augroup END
 
 " エンコーディングの設定
 set encoding=utf-8
-set fileencodings=sjis,utf-8,euc-jp,cp932
+if has('win32') || has ('win64')
+    set fileencodings=sjis,utf-8,euc-jp,cp932
+else
+    set fileencodings=utf-8,sjis,euc-jp,cp932
+endif
 
 " 行番号の表示
 set nu
+" 入力中コマンドの表示
+set showcmd
 " tabはスペース4つ
 set expandtab
 set tabstop=4
@@ -41,6 +47,9 @@ set incsearch
 set ignorecase
 " 検索を大文字がある場合には区別するように
 set smartcase
+" `デフォルトで拡張正規表現を使うように
+nnoremap / /\v
+nnoremap ? ?\v
 
 " Ctrl+sで保存
 nnoremap <C-s> :w<CR>
@@ -81,25 +90,32 @@ endif
 
 "dein Scripts-----------------------------
 "
-let g:dein#auto_recache=1
+" 自動でいらないキャッシュを消させる
+let g:dein#auto_recache = 1
 
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath+=C:\Users\Elithron\.cache\dein\repos\github.com\Shougo\dein.vim
-
 let g:dein_dir = $CACHE . '/dein'
-let s:toml = '~\AppData\Local\nvim\dein.toml'
+
+
+if has('win32') || has ('win64')
+    let $MY_DEIN_TOML = '~/AppData/Local/nvim/dein.toml'
+    let $MY_DEIN_TOML_LAZY = '~/AppData/Local/nvim/dein_lazy.toml'
+else
+    let $MY_DEIN_TOML = '~/.config/nvim/dein.toml'
+    let $MY_DEIN_TOML_LAZY = '~/.config/nvim/dein_lazy.toml'
+endif
 
 " 設定開始
 if dein#load_state(g:dein_dir)
 
-	call dein#begin(g:dein_dir, s:toml)
+	call dein#begin(g:dein_dir)
 
-	" TOML を読み込み、キャッシュしておく
-	call dein#load_toml(s:toml,      {'lazy': 0})
+	" tomlを読み込む
+	call dein#load_toml($MY_DEIN_TOML, {'lazy': 0})
+	call dein#load_toml($MY_DEIN_TOML_LAZY, {'lazy': 1})
 
     " 設定終了
     call dein#end()
@@ -115,8 +131,6 @@ if dein#check_install()
   call dein#install()
 endif
 
-" 自動でいらないキャッシュを消させる
-let g:dein#auto_recache = 1
 
 "End dein Scripts-------------------------
 
