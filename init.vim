@@ -100,17 +100,18 @@ endif
 let g:dein_dir = $CACHE . '/dein'
 
 
+" init.vimとかtomlとか置いてるディレクトリ
 if has('win32') || has ('win64')
-    let $MY_DEIN_TOML = '~/AppData/Local/nvim/dein.toml'
-    let $MY_DEIN_TOML_LAZY = '~/AppData/Local/nvim/dein_lazy.toml'
+    let $VIM_CONFIG_DIR = '~/AppData/Local/nvim'
 else
-    let $MY_DEIN_TOML = '~/.config/nvim/dein.toml'
-    let $MY_DEIN_TOML_LAZY = '~/.config/nvim/dein_lazy.toml'
+    let $VIM_CONFIG_DIR = '~/.config/nvim'
 endif
+" プラグイン管理用toml
+let $MY_DEIN_TOML = $VIM_CONFIG_DIR . '/dein.toml'
+let $MY_DEIN_TOML_LAZY = $VIM_CONFIG_DIR . '/dein_lazy.toml'
 
 " 設定開始
 if dein#load_state(g:dein_dir)
-
 	call dein#begin(g:dein_dir)
 
 	" tomlを読み込む
@@ -133,4 +134,3 @@ endif
 
 
 "End dein Scripts-------------------------
-
