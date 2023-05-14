@@ -46,11 +46,6 @@ hook_add='''
 
 
 
-
-
-
-
-
 # migemo検索 
 [[plugins]] 
 repo='rhysd/migemo-search.vim' 
@@ -127,5 +122,5 @@ hook_add='''
     " Enable snipMate compatibility feature.
     let g:neosnippet#enable_snipmate_compatibility = 1
     " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory=$VIM .. '\snippets'
+    let g:neosnippet#snippets_directory=$VIM_CONFIG_DIR .. '\snippets'
 '''

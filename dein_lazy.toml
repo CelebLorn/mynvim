@@ -79,11 +79,11 @@ hook_source='''
     call ddc#custom#patch_filetype(['mugen'],'sourceParams', {
             \ 'dictionary': {'dictPaths': 
             \ [
-            \ $VIM .. '\dict\mugen_trigger.dict',
-            \ $VIM .. '\dict\mugen_statectrler.dict',
-            \ $VIM .. '\dict\mugen_param.dict',
-            \ $VIM .. '\dict\mugen_mytrig.dict',
-            \ $VIM .. '\dict\mugen_redirect.dict',
+            \ $VIM_CONFIG_DIR .. '\dict\mugen_trigger.dict',
+            \ $VIM_CONFIG_DIR .. '\dict\mugen_statectrler.dict',
+            \ $VIM_CONFIG_DIR .. '\dict\mugen_param.dict',
+            \ $VIM_CONFIG_DIR .. '\dict\mugen_mytrig.dict',
+            \ $VIM_CONFIG_DIR .. '\dict\mugen_redirect.dict',
             \ ],
             \ 'smartCase': v:true,
             \ 'showMenu': v:false,
