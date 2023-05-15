@@ -49,6 +49,13 @@ hook_add='''
 # カッコとか関連をsaコマンドで行えるように
 [[plugins]]
 repo='machakann/vim-sandwich'
+hook_add='''
+    let g:sandwich_no_default_key_mappings = 1
+    let g:operator_sandwich_no_default_key_mappings = 1
+    nmap ys <Plug>(operator-sandwich-add)
+    nmap <silent>ds <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+    nmap <silent>cs <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+'''
 
 # .(繰り返し)を強化
 [[plugins]]
