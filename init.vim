@@ -47,9 +47,11 @@ set incsearch
 set ignorecase
 " 検索を大文字がある場合には区別するように
 set smartcase
-" `デフォルトで拡張正規表現を使うように
-nnoremap / /\v
-nnoremap ? ?\v
+" `デフォルトで拡張正規表現を使うように(vscodeだと困るのでnvimのみ)
+if has('nvim')
+    nnoremap / /\v
+    nnoremap ? ?\v
+endif 
 
 " Ctrl+sで保存
 nnoremap <C-s> :w<CR>
