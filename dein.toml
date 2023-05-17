@@ -118,3 +118,23 @@ hook_add='''
     " Tell Neosnippet about the other snippets
     let g:neosnippet#snippets_directory=$VIM_CONFIG_DIR .. '\snippets'
 '''
+
+# ファイラ
+[[plugins]] 
+repo='lambdalisue/fern.vim' 
+hook_add=''' 
+    " Ctrl+nでファイルツリーを表示/非表示する
+    nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
+''' 
+# ファイラの色づけ
+[[plugins]] 
+repo='lambdalisue/glyph-palette.vim' 
+depends='fern.vim'
+hook_add=''' 
+    " アイコンに色をつける
+    augroup my-glyph-palette
+      autocmd! *
+      autocmd FileType fern call glyph_palette#apply()
+      autocmd FileType nerdtree,startify call glyph_palette#apply()
+    augroup END
+''' 

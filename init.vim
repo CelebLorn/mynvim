@@ -47,6 +47,10 @@ set incsearch
 set ignorecase
 " 検索を大文字がある場合には区別するように
 set smartcase
+
+" 自動でカレントディレクトリを移動するように
+set autochdir
+
 " `デフォルトで拡張正規表現を使うように(vscodeだと困るのでnvimのみ)
 if has('nvim')
     nnoremap / /\v
