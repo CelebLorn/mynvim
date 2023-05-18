@@ -35,6 +35,13 @@ hook_add='''
     nmap <C-n> <Plug>AirlineSelectNextTab
 ''' 
 
+[[plugins]]
+repo='ryanoasis/vim-devicons'
+hook_add='''
+    " Powerline Fontsを利用
+    let g:airline_powerline_fonts = 1
+'''
+
 
 # migemo検索 
 [[plugins]] 
@@ -126,6 +133,20 @@ hook_add='''
     " Ctrl+nでファイルツリーを表示/非表示する
     nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
 ''' 
+
+# ファイラのアイコン
+[[plugins]]
+repo='lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo='lambdalisue/fern-renderer-nerdfont.vim'
+depends='nerdfont.vim'
+hook_add=''' 
+    " アイコン表示
+    let g:fern#renderer = 'nerdfont'
+''' 
+
+
 # ファイラの色づけ
 [[plugins]] 
 repo='lambdalisue/glyph-palette.vim' 
