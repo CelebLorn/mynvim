@@ -140,3 +140,11 @@ endif
 
 
 "End dein Scripts-------------------------
+
+" PCごとの設定など
+let $MYVIMRC_LOCAL = $VIM_CONFIG_DIR .. '/local.vim'
+
+if filereadable(expand($MYVIMRC_LOCAL))
+    source $MYVIMRC_LOCAL
+endif
+
