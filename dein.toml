@@ -132,6 +132,9 @@ hook_add='''
 
       nnoremap <buffer><silent> <Esc>
         \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+
+      nnoremap <buffer><silent> jj
+        \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
     endfunction
 
     autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
@@ -146,6 +149,9 @@ hook_add='''
         \ <Cmd>close<CR>
 
       nnoremap <buffer><silent> <Esc>
+        \ <Cmd>close<CR>
+
+      nnoremap <buffer><silent> jj
         \ <Cmd>close<CR>
     endfunction
 
