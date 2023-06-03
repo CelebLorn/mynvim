@@ -115,6 +115,7 @@ endif
 " プラグイン管理用toml
 let $MY_DEIN_TOML = $VIM_CONFIG_DIR . '/dein.toml'
 let $MY_DEIN_TOML_LAZY = $VIM_CONFIG_DIR . '/dein_lazy.toml'
+let $MY_DEIN_TOML_LOCAL = $VIM_CONFIG_DIR . '/dein_local.toml'
 
 " 設定開始
 if dein#load_state(g:dein_dir)
@@ -122,6 +123,9 @@ if dein#load_state(g:dein_dir)
 
 	" tomlを読み込む
 	call dein#load_toml($MY_DEIN_TOML, {'lazy': 0})
+    if filereadable(expand($MYVIMRC_LOCAL))
+        call dein#load_toml($MY_DEIN_TOML_LOCAL, {'lazy': 0})
+    endif
 	call dein#load_toml($MY_DEIN_TOML_LAZY, {'lazy': 1})
 
     " 設定終了
