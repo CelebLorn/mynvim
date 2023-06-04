@@ -69,6 +69,10 @@ endif
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>
 
+" 画面分割のショートカット
+nnoremap <Leader>wv <C-w>v<C-w>l
+nnoremap <Leader>ws <C-w>s<C-w>j
+
 
 " jとkの動作を見た目通りにする
 nnoremap j gj
