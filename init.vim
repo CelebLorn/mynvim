@@ -59,6 +59,7 @@ nnoremap <silent> p p`]
 " Leaderキーをスペースに割り当て
 let mapleader = "\<Space>"
 
+
 " デフォルトで拡張正規表現を使うように(vscodeだと困るのでnvimのみ)
 if has('nvim')
     nnoremap / /\v
