@@ -260,7 +260,8 @@ hook_add='''
     nnoremap <leader>ga :Git add -A<CR><CR>
     nnoremap <leader>gc :Git commit<CR><CR>
     nnoremap <leader>gs :Git<CR>
-    nnoremap <leader>gp :Git push<CR>
+    nnoremap <leader>gps :Git push<CR>
+    nnoremap <leader>gpl :Git pull<CR>
     nnoremap <leader>gd :Git diff<CR>
     nnoremap <leader>gl :Git log<CR>
     nnoremap <leader>gb :Git blame<CR>
@@ -274,8 +275,12 @@ hook_add='''
     let g:smooth_scroll_no_default_key_mappings = 1 " <C-f> などを再定義したいとき
 
     " smooth_scroll#flick の引数には スクロール行数、スクロール時間、方向を指定
-    nnoremap <silent> <C-f> :call smooth_scroll#flick(winheight(0), 20,  1)<CR>
-    nnoremap <silent> <C-b> :call smooth_scroll#flick(winheight(0), 20, -1)<CR>
-    nnoremap <silent> <C-d> :call smooth_scroll#flick(winheight(0) / 2, 10,  1)<CR>
-    nnoremap <silent> <C-u> :call smooth_scroll#flick(winheight(0) / 2, 10, -1)<CR>
+    nnoremap <silent> <C-f> :call smooth_scroll#flick(winheight(0), 10)<CR>
+    nnoremap <silent> <C-b> :call smooth_scroll#flick(-winheight(0), 10)<CR>
+    nnoremap <silent> <C-d> :call smooth_scroll#flick(winheight(0) / 2, 5)<CR>
+    nnoremap <silent> <C-u> :call smooth_scroll#flick(-winheight(0) / 2, 5)<CR>
+
+    " スクロールの仕方。 linear, quadratic, cubic, quintic から指定（デフォルト：quadratic）
+    " 次数を高めるほど速度の不連続点が減る
+    let g:smooth_scroll_scrollkind = "cubic"
 '''
