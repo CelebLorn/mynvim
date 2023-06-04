@@ -51,7 +51,15 @@ set smartcase
 " 自動でカレントディレクトリを移動するように
 set autochdir
 
-" `デフォルトで拡張正規表現を使うように(vscodeだと困るのでnvimのみ)
+" プット後のカーソルを末尾に自動移動
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+" Leaderキーをスペースに割り当て
+let mapleader = "\<Space>"
+
+" デフォルトで拡張正規表現を使うように(vscodeだと困るのでnvimのみ)
 if has('nvim')
     nnoremap / /\v
     nnoremap ? ?\v

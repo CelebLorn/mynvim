@@ -7,7 +7,6 @@ repo='Shougo/dein.vim'
 repo='wsdjeg/dein-ui.vim' 
 depends='dein.vim' 
 
-
 # カラースキーマ
 [[plugins]] 
 repo='morhetz/gruvbox' 
@@ -62,6 +61,7 @@ hook_add='''
     nmap ys <Plug>(operator-sandwich-add)
     nmap <silent>ds <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
     nmap <silent>cs <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+    vmap S <Plug>(operator-sandwich-add)
 '''
 
 # .(繰り返し)を強化
@@ -178,35 +178,6 @@ hook_add='''
     \}
 ''' 
 
-# スニペット
-[[plugins]]
-repo='Shougo/neosnippet.vim'
-hook_add='''
-    " Plugin key-mappings. neosnippet.vim
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-    " SuperTab like snippets behavior. neosnippet.vim
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ '\<Plug>(neosnippet_expand_or_jump)' : '\<TAB>'
-
-    " For conceal markers.
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
-    endif
-'''
-
-[[plugins]]
-repo='Shougo/neosnippet-snippets'
-hook_add='''
-    " Enable snipMate compatibility feature.
-    let g:neosnippet#enable_snipmate_compatibility = 1
-    " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory=$VIM_CONFIG_DIR .. '\snippets'
-'''
 
 # ファイラ
 [[plugins]] 
@@ -214,6 +185,8 @@ repo='lambdalisue/fern.vim'
 hook_add=''' 
     " Ctrl+nでファイルツリーを表示/非表示する
     nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
+    " 隠しファイル表示
+    let g:fern#default_hidden=1
 ''' 
 
 # ファイラのアイコン
@@ -241,3 +214,68 @@ hook_add='''
       autocmd FileType nerdtree,startify call glyph_palette#apply()
     augroup END
 ''' 
+
+# スニペット
+[[plugins]]
+repo='Shougo/neosnippet.vim'
+hook_source='''
+    " Plugin key-mappings. neosnippet.vim
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+    " SuperTab like snippets behavior. neosnippet.vim
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ '\<Plug>(neosnippet_expand_or_jump)' : '\<TAB>'
+
+    " For conceal markers.
+    if has('conceal')
+      set conceallevel=2 concealcursor=niv
+    endif
+'''
+
+[[plugins]]
+repo='Shougo/neosnippet-snippets'
+on_source='neosnippet.vim'
+hook_source='''
+    " Enable snipMate compatibility feature.
+    let g:neosnippet#enable_snipmate_compatibility = 1
+    " Tell Neosnippet about the other snippets
+    let g:neosnippet#snippets_directory=$VIM_CONFIG_DIR .. '\snippets'
+'''
+
+# ヤンクしたところが光る
+[[plugins]]
+repo = 'machakann/vim-highlightedyank'
+hook_add = '''
+  let g:highlightedyank_highlight_duration = 300
+'''
+
+# git操作
+[[plugins]]
+repo='tpope/vim-fugitive'
+hook_add='''
+    nnoremap <leader>ga :Git add -A<CR><CR>
+    nnoremap <leader>gc :Git commit<CR><CR>
+    nnoremap <leader>gs :Git<CR>
+    nnoremap <leader>gp :Git push<CR>
+    nnoremap <leader>gd :Git diff<CR>
+    nnoremap <leader>gl :Git log<CR>
+    nnoremap <leader>gb :Git blame<CR>
+'''
+
+# スムーススクロール
+[[plugins]]
+repo = 'monaqa/smooth-scroll.vim'
+hook_add='''
+    let g:smooth_scroll_interval = 1000.0 / 60  " スクロール時間の単位 [ms]
+    let g:smooth_scroll_no_default_key_mappings = 1 " <C-f> などを再定義したいとき
+
+    " smooth_scroll#flick の引数には スクロール行数、スクロール時間、方向を指定
+    nnoremap <silent> <C-f> :call smooth_scroll#flick(winheight(0), 20,  1)<CR>
+    nnoremap <silent> <C-b> :call smooth_scroll#flick(winheight(0), 20, -1)<CR>
+    nnoremap <silent> <C-d> :call smooth_scroll#flick(winheight(0) / 2, 10,  1)<CR>
+    nnoremap <silent> <C-u> :call smooth_scroll#flick(winheight(0) / 2, 10, -1)<CR>
+'''
