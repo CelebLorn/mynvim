@@ -103,7 +103,9 @@ if has('win32') || has('win64')
     endif
    set shellcmdflag=-c
    set shellquote="
-endif
+end
+   set shellcmdflag=-c
+   set shellquote="
 
 " undoをいい感じに
 if has('persistent_undo')
