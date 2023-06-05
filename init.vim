@@ -22,8 +22,6 @@ set shiftwidth=4
 
 " インデント
 set smartindent
-" 人権
-inoremap <silent> jj <ESC>
 
 " 無名レジスタとクリップボードを同期
 set clipboard+=unnamed
@@ -51,20 +49,32 @@ set smartcase
 " 自動でカレントディレクトリを移動するように
 set autochdir
 
-" プット後のカーソルを末尾に自動移動
-vnoremap <silent> y y`]
-vnoremap <silent> p p`]
-nnoremap <silent> p p`]
+" ターミナルを開いたらに常にinsertモードに入る
+autocmd TermOpen * :startinsert
 
-" Leaderキーをスペースに割り当て
-let mapleader = "\<Space>"
+" --------------------------------------------------
+" remap
+" --------------------------------------------------
+
+" 人権
+inoremap <silent> jj <ESC>
+
+" プット後のカーソルを末尾に自動移動(vscodeだとうまく動かんので回避)
+if 1
+    vnoremap <silent> y y`]
+    vnoremap <silent> p p`]
+    nnoremap <silent> p p`]
+endif
 
 
 " デフォルトで拡張正規表現を使うように(vscodeだと困るのでnvimのみ)
-if has('nvim')
+if 1
     nnoremap / /\v
     nnoremap ? ?\v
 endif 
+
+" Leaderキーをスペースに割り当て
+let mapleader = "\<Space>"
 
 " Ctrl+sで保存
 nnoremap <C-s> :w<CR>
@@ -78,6 +88,22 @@ nnoremap <Leader>ws <C-w>s<C-w>j
 " jとkの動作を見た目通りにする
 nnoremap j gj
 nnoremap k gk
+
+" nvimのターミナル設定
+if has('nvim')
+    tnoremap <silent> jj <C-\><C-n>
+endif
+
+" windowsでのターミナルモードの設定
+if has('win32') || has('win64')
+    if executable('bash')
+        set shell=bash
+    else
+        set shell=powershell
+    endif
+   set shellcmdflag=-c
+   set shellquote="
+endif
 
 " undoをいい感じに
 if has('persistent_undo')
