@@ -284,3 +284,21 @@ hook_add='''
     " 次数を高めるほど速度の不連続点が減る
     let g:smooth_scroll_scrollkind = "cubic"
 '''
+
+# カーソル移動を楽に
+[[plugins]]
+repo='easymotion/vim-easymotion'
+hook_add='''
+    " smartcase
+    let g:EasyMotion_smartcase = 1
+
+    " migemo有効化
+    let g:EasyMotion_use_migemo = 1
+
+
+    " hjklモーション
+    map <Leader>l <Plug>(easymotion-lineforward)
+    map <Leader>j <Plug>(easymotion-j)
+    map <Leader>k <Plug>(easymotion-k)
+    map <Leader>h <Plug>(easymotion-linebackward)
+'''
