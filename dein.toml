@@ -16,6 +16,7 @@ hook_add = '''
     au MyAutoCmd VimEnter * nested colorscheme gruvbox
 '''
 
+
 [[plugins]] 
 repo='vim-airline/vim-airline-themes' 
 depends='vim-airline' 
@@ -27,7 +28,7 @@ hook_add='''
 [[plugins]] 
 repo='vim-airline/vim-airline' 
 hook_add=''' 
-	let g:airline#extensions#tabline#enabled = 1 
+	let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#formatter = 'jsformatter'
     " バッファ移動
     nmap <C-p> <Plug>AirlineSelectPrevTab
@@ -113,7 +114,6 @@ hook_add='''
     \     }
     \   },
     \ })
-
 
 
     autocmd FileType ddu-ff call s:ddu_my_settings()
@@ -301,4 +301,29 @@ hook_add='''
     map <Leader>j <Plug>(easymotion-j)
     map <Leader>k <Plug>(easymotion-k)
     map <Leader>h <Plug>(easymotion-linebackward)
+
+    " s{char}{char} to move to {char}{char}
+    map <leader>s <Plug>(easymotion-bd-f2)
+    nmap <leader>s <Plug>(easymotion-overwin-f2)
+
+    " Move to line
+    map <leader>L <Plug>(easymotion-bd-jk)
+    nmap <leader>L <Plug>(easymotion-overwin-line)
 '''
+
+# vim-preciousの依存
+[[plugins]]
+repo='Shougo/context_filetype.vim'
+
+# カーソル位置でfieltypeを切り替える
+[[plugins]]
+repo='osyo-manga/vim-precious'
+depends=['context_filetype.vim']
+
+# コメントアウト
+[[plugins]]
+repo='tpope/vim-commentary'
+
+# pum
+#[[plugins]]
+#repo='Shougo/pum.vim'

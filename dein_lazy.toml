@@ -28,6 +28,7 @@ repo = 'Shougo/ddc-ui-native'
 on_source = 'ddc.vim'
 
 
+
 # 補完
 [[plugins]]
 repo='Shougo/ddc.vim'
@@ -105,6 +106,7 @@ hook_source='''
 
     " Use ddc.
     call ddc#enable()
+
 '''
 
 
