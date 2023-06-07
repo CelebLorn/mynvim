@@ -164,7 +164,7 @@ if dein#load_state(g:dein_dir)
 
 	" tomlを読み込む
 	call dein#load_toml($MY_DEIN_TOML, {'lazy': 0})
-    if filereadable(expand($MYVIMRC_LOCAL))
+    if filereadable(expand($MY_DEIN_TOML_LOCAL))
         call dein#load_toml($MY_DEIN_TOML_LOCAL, {'lazy': 0})
     endif
 	call dein#load_toml($MY_DEIN_TOML_LAZY, {'lazy': 1})
