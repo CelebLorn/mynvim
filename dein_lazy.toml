@@ -3,12 +3,19 @@
 [[plugins]]
 repo='vim-denops/denops.vim'
 
+
 # ddc source
+# 辞書から
 [[plugins]]
 repo='matsui54/ddc-dictionary'
 on_source='ddc.vim'
+# 周囲から
 [[plugins]]
 repo='Shougo/ddc-around'
+on_source='ddc.vim'
+# コマンドから
+[[plugins]]
+repo='Shougo/ddc-source-cmdline'
 on_source='ddc.vim'
 
 # ddc filter
@@ -22,21 +29,21 @@ on_source='ddc.vim'
 repo='Shougo/ddc-filter-converter_remove_overlap'
 on_source='ddc.vim'
 
-# ddc UI
-[[plugins]]
-repo = 'Shougo/ddc-ui-native'
-on_source = 'ddc.vim'
 
+# pddc UI um.vimと連携
+[[plugins]]
+repo='Shougo/ddc-ui-pum'
+on_source = 'ddc.vim'
 
 
 # 補完
 [[plugins]]
 repo='Shougo/ddc.vim'
 depends='denops.vim'
-on_event = 'InsertEnter'
+on_event = ['InsertEnter']
 hook_source='''
     " uiの設定
-    call ddc#custom#patch_global('ui', 'native')
+    call ddc#custom#patch_global('ui', 'pum')
 
     " Use matcher_head and sorter_rank.
     " https://github.com/Shougo/ddc-matcher_head
@@ -50,23 +57,15 @@ hook_source='''
     " Customize global setting
     " Use around source.
     " https://github.com/Shougo/ddc-around
-    call ddc#custom#patch_global('sources', ['around'])
+    call ddc#custom#patch_global('sources', ['around','cmdline'])
 
     " Change source options
     call ddc#custom#patch_global('sourceOptions', {
-          \ 'around': {'mark': 'A'},
+          \ 'around': {'mark': 'Ard'},
+          \ 'cmdline': {'mark': 'Cmd'},
           \ })
     call ddc#custom#patch_global('sourceParams', {
           \ 'around': {'maxSize': 500},
-          \ })
-
-    " Customize settings on a filetype
-    call ddc#custom#patch_filetype(['c', 'cpp'], 'sources', ['around', 'clangd'])
-    call ddc#custom#patch_filetype(['c', 'cpp'], 'sourceOptions', {
-          \ 'clangd': {'mark': 'C'},
-          \ })
-    call ddc#custom#patch_filetype('markdown', 'sourceParams', {
-          \ 'around': {'maxSize': 100},
           \ })
 
     " mugen独自の設定
@@ -94,19 +93,52 @@ hook_source='''
 
     " <TAB>: completion. ddc.vim
     inoremap <silent><expr> <TAB>
-     \ pumvisible() ? '<C-n>' :
-     \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s'<Bar><Bar> getline('.')[col('.') - 2] =~# ';') ?
-     \ '<TAB>' : ddc#map#manual_complete()
+    \ ddc#map#pum_visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+    \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s'<Bar><Bar> getline('.')[col('.') - 2] =~# ';') ?
+    \ '<TAB>' : ddc#map#manual_complete()
 
     " <S-TAB>: completion back. ddc.vim
-    inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+    inoremap <expr><S-TAB>  ddc#map#pum_visible() ? '<C-p>' : '<C-h>'
 
     " 補完の動作をいい感じに
-    inoremap <expr><CR>  pumvisible() ? '<C-y>' : '<CR>'
+    inoremap <expr><CR>  ddc#map#pum_visible() ? '<C-y>' : '<CR>'
+
+    " コマンド補完
+    call ddc#custom#patch_global(#{
+            \   ui: 'pum',
+            \   autoCompleteEvents: [
+            \     'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
+            \   ],
+            \   cmdlineSources: {
+            \     ':': ['cmdline', 'cmdline-history', 'around']
+            \   },
+            \ })
+    nnoremap :       <Cmd>call CommandlinePre()<CR>:
+
+    function! CommandlinePre() abort
+        cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+        cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+        cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+        cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+        cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+        cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+
+        autocmd User DDCCmdlineLeave ++once call CommandlinePost()
+
+        " Enable command line completion for the buffer
+        call ddc#enable_cmdline_completion()
+    endfunction
+    function! CommandlinePost() abort
+        silent! cunmap <Tab>
+        silent! cunmap <S-Tab>
+        silent! cunmap <C-n>
+        silent! cunmap <C-p>
+        silent! cunmap <C-y>
+        silent! cunmap <C-e>
+    endfunction
 
     " Use ddc.
     call ddc#enable()
-
 '''
 
 

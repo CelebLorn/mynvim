@@ -101,11 +101,9 @@ if has('win32') || has('win64')
     else
         set shell=powershell
     endif
-   set shellcmdflag=-c
-   set shellquote="
 end
-   set shellcmdflag=-c
-   set shellquote="
+set shellcmdflag=-c
+set shellquote="
 
 " undoをいい感じに
 if has('persistent_undo')
@@ -113,6 +111,7 @@ if has('persistent_undo')
 	exe 'set undodir=' .. undo_path
 	set undofile
 endif
+set undolevels=100 " undo上限 100回で十分
 
 " mugen用のファイルをmugen用のカラーで読ませる
 au BufRead,BufNewFile *.cns,*.st set filetype=mugen
