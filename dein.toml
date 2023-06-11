@@ -52,7 +52,6 @@ hook_add='''
 	endif 
 ''' 
 
-
 # カッコとか関連をsaコマンドで行えるように
 [[plugins]]
 repo='machakann/vim-sandwich'
@@ -155,13 +154,16 @@ hook_add='''
         \ <Cmd>close<CR>
     endfunction
 
-    nmap <silent> ,f <Cmd>call ddu#start({})<CR>
+    nmap <silent> <Leader>f <Cmd>call ddu#start({})<CR>
 '''
 
 
 # カッコとかを閉じる
 [[plugins]]
 repo='cohama/lexima.vim'
+hook_add='''
+    let g:lexima_no_default_rules=1
+'''
 
 # 括弧の色付け 
 [[plugins]] 
@@ -332,6 +334,8 @@ hook_add='''
     inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
     inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
     inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+    " <S-TAB>: completion back. ddc.vim
+    inoremap <expr><S-TAB>  pum#visible() ? '<C-p>' : '<C-h>'
 '''
 
 
