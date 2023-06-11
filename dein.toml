@@ -78,8 +78,11 @@ repo = 'Shougo/ddu-filter-matcher_substring'
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
 [[plugins]]
+repo='ryota2357/ddu-column-icon_filename'
+[[plugins]]
 repo='Shougo/ddu.vim'
 hook_add='''
+    call ddu#custom#alias('column', 'icon_filename_for_ff', 'icon_filename')
     call ddu#custom#patch_global({
     \   'ui': 'ff',
     \   'sources': [
@@ -90,9 +93,13 @@ hook_add='''
     \       }
     \     }
     \   ],
+    \   'columns': [
+    \       'icon_filename'
+    \   ],
     \   'sourceOptions': {
     \     '_': {
     \       'matchers': ['matcher_substring'],
+    \       'columns': ['icon_filename_for_ff'],
     \     },
     \   },
     \   'filterParams': {
@@ -110,6 +117,13 @@ hook_add='''
     \       'startFilter': v:true,
     \       'prompt': '> ',
     \       'split': 'floating',
+    \     }
+    \   },
+    \   'columnParams': {
+    \     'icon_filename_for_ff': {
+    \       'defaultIcon': {'icon':''},
+    \       'padding': 0,
+    \       'pathDisplayOption': 'relative',
     \     }
     \   },
     \ })
@@ -154,7 +168,7 @@ hook_add='''
         \ <Cmd>close<CR>
     endfunction
 
-    nmap <silent> <Leader>f <Cmd>call ddu#start({})<CR>
+    nmap <silent> <Leader>f <Cmd>call ddu#start({})<CR>i
 '''
 
 
