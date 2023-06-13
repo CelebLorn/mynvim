@@ -1,154 +1,47 @@
+# ===========================================
+# Lazy load plugins
+# ===========================================
 
-# ddcの依存
+# ddcとかの依存
 [[plugins]]
 repo='vim-denops/denops.vim'
 
-
-# ddc source
-# 辞書から
+# カッコとかを閉じる
 [[plugins]]
-repo='matsui54/ddc-dictionary'
-on_source='ddc.vim'
-# 周囲から
-[[plugins]]
-repo='Shougo/ddc-around'
-on_source='ddc.vim'
-# コマンドから
-[[plugins]]
-repo='Shougo/ddc-source-cmdline'
-on_source='ddc.vim'
-# 過去コマンドから
-[[plugins]]
-repo='Shougo/ddc-source-cmdline-history'
-on_source='ddc.vim'
-
-# ddc filter
-[[plugins]]
-repo='Shougo/ddc-filter-converter_remove_overlap'
-on_source='ddc.vim'
-[[plugins]]
-repo='tani/ddc-fuzzy'
-on_source='ddc.vim'
-
-
-# ddc UI pum.vimと連携
-[[plugins]]
-repo='Shougo/ddc-ui-pum'
-on_source = 'ddc.vim'
-
-
-# 補完
-[[plugins]]
-repo='Shougo/ddc.vim'
-depends='denops.vim'
+repo='cohama/lexima.vim'
 on_event = ['InsertEnter']
-hook_source='''
-    " uiの設定
-    call ddc#custom#patch_global('ui', 'pum')
-
-    " Use matcher_fuzzy and sorter_fuzzy.
-    call ddc#custom#patch_global('sourceOptions', {
-          \ '_': {
-          \   'matchers': ['matcher_fuzzy'],
-          \   'sorters': ['sorter_fuzzy'],
-          \   'converters': ['converter_fuzzy']
-          \},
-          \ })
-
-    " Customize global setting
-    " Use around source.
-    " https://github.com/Shougo/ddc-around
-    call ddc#custom#patch_global('sources', [
-                \ 'around',
-                \ 'cmdline',
-                \ 'cmdline-history',
-                \ ])
-
-    " Change source options
-    call ddc#custom#patch_global('sourceOptions', {
-          \ 'around': {'mark': 'Ard'},
-          \ 'cmdline': {'mark': 'Cmd'},
-          \ 'cmdline-history': {'mark': 'Hst'},
-          \ })
-    call ddc#custom#patch_global('sourceParams', {
-          \ 'around': {'maxSize': 500},
-          \ })
-
-    " mugen独自の設定
-    call ddc#custom#patch_filetype(['mugen'],'sources', ['dictionary'])
-
-    call ddc#custom#patch_filetype(['mugen'],'sourceOptions', {
-          \ '_': {'matchers': ['matcher_fuzzy']},
-          \ 'dictionary': {'mark': 'D'},
-          \ })
-
-    call ddc#custom#patch_filetype(['mugen'],'sourceParams', {
-            \ 'dictionary': {'dictPaths': 
-            \ [
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_trigger.dict',
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_statectrler.dict',
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_param.dict',
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_mytrig.dict',
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_redirect.dict',
-            \ ],
-            \ 'smartCase': v:true,
-            \ 'showMenu': v:false,
-            \ }
-            \})
-
-
-    " <TAB>: completion. ddc.vim
-    inoremap <silent><expr> <TAB>
-    \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-    \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s'<Bar><Bar> getline('.')[col('.') - 2] =~# ';') ?
-    \ '<TAB>' : ddc#map#manual_complete()
-
-
-    
-    " 補完の動作をいい感じに
-    " leximaとの干渉があるので、このタイミングでleximaのルールを設定し、上書き
-    call lexima#set_default_rules()
-    execute printf("inoremap <expr><silent> <CR> pum#visible() ? pum#map#confirm() : lexima#expand(%s, 'i')",
-              \ string(lexima#string#to_mappable('<CR>'))
-              \ )
-    
-
-    " コマンド補完
-    call ddc#custom#patch_global(#{
-            \   ui: 'pum',
-            \   autoCompleteEvents: [
-            \     'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
-            \   ],
-            \   cmdlineSources: {
-            \     ':': ['cmdline', 'cmdline-history', 'around']
-            \   },
-            \ })
-    nnoremap :       <Cmd>call CommandlinePre()<CR>:
-
-    function! CommandlinePre() abort
-        cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
-        cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-        cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-        cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
-        cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-        cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-
-        autocmd User DDCCmdlineLeave ++once call CommandlinePost()
-
-        " Enable command line completion for the buffer
-        call ddc#enable_cmdline_completion()
-    endfunction
-    function! CommandlinePost() abort
-        silent! cunmap <Tab>
-        silent! cunmap <S-Tab>
-        silent! cunmap <C-n>
-        silent! cunmap <C-p>
-        silent! cunmap <C-y>
-        silent! cunmap <C-e>
-    endfunction
-
-    " Use ddc.
-    call ddc#enable()
+hook_add='''
+    let g:lexima_no_default_rules=1
 '''
 
+# スニペット
+[[plugins]]
+repo='Shougo/neosnippet.vim'
+on_event = ['InsertEnter']
+hook_source='''
+    " Plugin key-mappings. neosnippet.vim
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
 
+    " SuperTab like snippets behavior. neosnippet.vim
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ '\<Plug>(neosnippet_expand_or_jump)' : '\<TAB>'
+
+    " For conceal markers.
+    if has('conceal')
+      set conceallevel=2 concealcursor=niv
+    endif
+'''
+
+[[plugins]]
+repo='Shougo/neosnippet-snippets'
+on_source='neosnippet.vim'
+hook_source='''
+    " Enable snipMate compatibility feature.
+    let g:neosnippet#enable_snipmate_compatibility = 1
+    " Tell Neosnippet about the other snippets
+    let g:neosnippet#snippets_directory=$VIM_CONFIG_DIR .. '\snippets'
+'''

@@ -1,3 +1,7 @@
+# ===========================================
+# Normal load plugins
+# ===========================================
+
 # dein 
 [[plugins]] 
 repo='Shougo/dein.vim'
@@ -15,7 +19,6 @@ hook_add = '''
 	set background=dark 
     au MyAutoCmd VimEnter * nested colorscheme gruvbox
 '''
-
 
 [[plugins]] 
 repo='vim-airline/vim-airline-themes' 
@@ -172,12 +175,6 @@ hook_add='''
 '''
 
 
-# カッコとかを閉じる
-[[plugins]]
-repo='cohama/lexima.vim'
-hook_add='''
-    let g:lexima_no_default_rules=1
-'''
 
 # 括弧の色付け 
 [[plugins]] 
@@ -231,36 +228,6 @@ hook_add='''
     augroup END
 ''' 
 
-# スニペット
-[[plugins]]
-repo='Shougo/neosnippet.vim'
-hook_source='''
-    " Plugin key-mappings. neosnippet.vim
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-    " SuperTab like snippets behavior. neosnippet.vim
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ '\<Plug>(neosnippet_expand_or_jump)' : '\<TAB>'
-
-    " For conceal markers.
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
-    endif
-'''
-
-[[plugins]]
-repo='Shougo/neosnippet-snippets'
-on_source='neosnippet.vim'
-hook_source='''
-    " Enable snipMate compatibility feature.
-    let g:neosnippet#enable_snipmate_compatibility = 1
-    " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory=$VIM_CONFIG_DIR .. '\snippets'
-'''
 
 # ヤンクしたところが光る
 [[plugins]]
@@ -352,4 +319,9 @@ hook_add='''
     inoremap <expr><S-TAB>  pum#visible() ? '<C-p>' : '<C-h>'
 '''
 
+# LSP
+[[plugins]]
+repo='prabirshrestha/vim-lsp'
 
+[[plugins]]
+repo='mattn/vim-lsp-settings'

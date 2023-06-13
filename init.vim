@@ -1,3 +1,7 @@
+" ===========================================
+" init.vim (also read by vscodevim)
+" ===========================================
+
 " autocmdの設定
 augroup MyAutoCmd
   autocmd!
@@ -26,10 +30,6 @@ set smartindent
 " 無名レジスタとクリップボードを同期
 set clipboard+=unnamed
 
-" ポップアップメニューの色
-highlight Pmenu ctermbg=6 guibg=#4c745a
-highlight PmenuSel ctermbg=3 guibg=#d4b979
-highlight PmenuSbar ctermbg=0 guibg=#333333
 
 " スワップファイルを無効化
 set noswapfile
@@ -156,6 +156,7 @@ endif
 let $MY_DEIN_TOML = $VIM_CONFIG_DIR . '/dein.toml'
 let $MY_DEIN_TOML_LAZY = $VIM_CONFIG_DIR . '/dein_lazy.toml'
 let $MY_DEIN_TOML_LOCAL = $VIM_CONFIG_DIR . '/dein_local.toml'
+let $MY_DEIN_TOML_DDC = $VIM_CONFIG_DIR . '/dein_ddc.toml'
 
 " 設定開始
 if dein#load_state(g:dein_dir)
@@ -167,6 +168,7 @@ if dein#load_state(g:dein_dir)
         call dein#load_toml($MY_DEIN_TOML_LOCAL, {'lazy': 0})
     endif
 	call dein#load_toml($MY_DEIN_TOML_LAZY, {'lazy': 1})
+	call dein#load_toml($MY_DEIN_TOML_DDC, {'lazy': 1})
 
     " 設定終了
     call dein#end()
