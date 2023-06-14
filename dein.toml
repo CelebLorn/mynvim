@@ -29,6 +29,7 @@ repo='vim-airline/vim-airline-themes'
 depends='vim-airline' 
 hook_add=''' 
 	let g:airline_theme='gruvbox' 
+	let g:airline_highlighting_cache=1
 ''' 
 
 # ステータスライン 
@@ -326,3 +327,13 @@ repo='prabirshrestha/vim-lsp'
 [[plugins]]
 repo='mattn/vim-lsp-settings'
 on_source = 'vim-lsp'
+hook_add='''
+    " signcolumns無効化
+    let g:lsp_diagnostics_signs_enabled = 0
+    " カーソルを当てるとエラー詳細
+    let g:lsp_diagnostics_echo_cursor = 1
+'''
+hook_post_source = '''
+  " エラーハイライト
+  highlight link LspWarningHighlight Error
+'''

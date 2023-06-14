@@ -49,6 +49,9 @@ set smartcase
 " 自動でカレントディレクトリを移動するように
 set autochdir
 
+" ポップアップメニューの最大表示数
+set pumheight=10
+
 " ターミナルを開いたらに常にinsertモードに入る
 autocmd TermOpen * :startinsert
 " ターミナルでは行番号を非表示にする
