@@ -11,6 +11,10 @@ repo='Shougo/dein.vim'
 repo='wsdjeg/dein-ui.vim' 
 depends='dein.vim' 
 
+# ddcとかの依存
+[[plugins]]
+repo='vim-denops/denops.vim'
+
 # カラースキーマ
 [[plugins]] 
 repo='morhetz/gruvbox' 
@@ -233,7 +237,7 @@ hook_add='''
 [[plugins]]
 repo = 'machakann/vim-highlightedyank'
 hook_add = '''
-  let g:highlightedyank_highlight_duration = 300
+  let g:highlightedyank_highlight_duration = 200
 '''
 
 # git操作
@@ -274,10 +278,6 @@ repo='easymotion/vim-easymotion'
 hook_add='''
     " smartcase
     let g:EasyMotion_smartcase = 1
-
-    " migemo有効化
-    let g:EasyMotion_use_migemo = 1
-
 
     " hjklモーション
     map <Leader>l <Plug>(easymotion-lineforward)
@@ -322,6 +322,7 @@ hook_add='''
 # LSP
 [[plugins]]
 repo='prabirshrestha/vim-lsp'
-
+# LSPの導入を簡単にするやつ
 [[plugins]]
 repo='mattn/vim-lsp-settings'
+on_source = 'vim-lsp'

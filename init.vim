@@ -51,6 +51,9 @@ set autochdir
 
 " ターミナルを開いたらに常にinsertモードに入る
 autocmd TermOpen * :startinsert
+" ターミナルでは行番号を非表示にする
+autocmd TermOpen * setlocal norelativenumber
+autocmd TermOpen * setlocal nonumber
 
 " --------------------------------------------------
 " remap

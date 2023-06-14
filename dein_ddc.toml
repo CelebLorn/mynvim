@@ -88,7 +88,10 @@ hook_source='''
           \ 'around': {'mark': 'Ard'},
           \ 'cmdline': {'mark': 'Cmd'},
           \ 'cmdline-history': {'mark': 'Hst'},
-          \ 'vim-lsp': {'mark': 'LSP'},
+          \ 'vim-lsp': {
+          \     'mark': 'LSP',
+          \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+          \     },
           \ })
     call ddc#custom#patch_global('sourceParams', {
           \ 'around': {'maxSize': 500},
@@ -105,11 +108,11 @@ hook_source='''
     call ddc#custom#patch_filetype(['mugen'],'sourceParams', {
             \ 'dictionary': {'dictPaths': 
             \ [
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_trigger.dict',
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_statectrler.dict',
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_param.dict',
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_mytrig.dict',
-            \ $VIM_CONFIG_DIR .. '\dict\mugen_redirect.dict',
+            \   $VIM_CONFIG_DIR .. '/dict/mugen_trigger.dict',
+            \   $VIM_CONFIG_DIR .. '/dict/mugen_statectrler.dict',
+            \   $VIM_CONFIG_DIR .. '/dict/mugen_param.dict',
+            \   $VIM_CONFIG_DIR .. '/dict/mugen_mytrig.dict',
+            \   $VIM_CONFIG_DIR .. '/dict/mugen_redirect.dict',
             \ ],
             \ 'smartCase': v:true,
             \ 'showMenu': v:false,
@@ -122,7 +125,6 @@ hook_source='''
     \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
     \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s'<Bar><Bar> getline('.')[col('.') - 2] =~# ';') ?
     \ '<TAB>' : ddc#map#manual_complete()
-
 
     
     " 補完の動作をいい感じに
@@ -170,5 +172,4 @@ hook_source='''
     " Use ddc.
     call ddc#enable()
 '''
-
 

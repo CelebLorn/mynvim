@@ -2,9 +2,6 @@
 # Lazy load plugins
 # ===========================================
 
-# ddcとかの依存
-[[plugins]]
-repo='vim-denops/denops.vim'
 
 # カッコとかを閉じる
 [[plugins]]
@@ -21,13 +18,13 @@ on_event = ['InsertEnter']
 hook_source='''
     " Plugin key-mappings. neosnippet.vim
     " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    inoremap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    snoremap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xnoremap <C-k>     <Plug>(neosnippet_expand_target)
 
     " SuperTab like snippets behavior. neosnippet.vim
     " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    snoremap <expr><TAB> neosnippet#expandable_or_jumpable() ?
     \ '\<Plug>(neosnippet_expand_or_jump)' : '\<TAB>'
 
     " For conceal markers.
@@ -43,5 +40,5 @@ hook_source='''
     " Enable snipMate compatibility feature.
     let g:neosnippet#enable_snipmate_compatibility = 1
     " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory=$VIM_CONFIG_DIR .. '\snippets'
+    let g:neosnippet#snippets_directory=$VIM_CONFIG_DIR .. '/snippets'
 '''
