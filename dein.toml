@@ -323,16 +323,45 @@ hook_add='''
 # LSP
 [[plugins]]
 repo='prabirshrestha/vim-lsp'
+hook_add='''
+    function! s:on_lsp_buffer_enabled() abort
+        setlocal omnifunc=lsp#complete
+        if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+        nnoremap <buffer> gd <plug>(lsp-definition)
+        nnoremap <buffer> gs <plug>(lsp-document-symbol-search)
+        nnoremap <buffer> gS <plug>(lsp-workspace-symbol-search)
+        nnoremap <buffer> gr <plug>(lsp-references)
+        nnoremap <buffer> gi <plug>(lsp-implementation)
+        nnoremap <buffer> gt <plug>(lsp-type-definition)
+        nnoremap <buffer> <leader>rn <plug>(lsp-rename)
+        nnoremap <buffer> g[ <plug>(lsp-previous-diagnostic)
+        nnoremap <buffer> g] <plug>(lsp-next-diagnostic)
+        nnoremap <buffer> K <plug>(lsp-hover)
+        nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+        nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+        let g:lsp_format_sync_timeout = 1000
+        autocmd! BufWritePre <buffer> call execute('LspDocumentFormatSync')
+        
+        " refer to doc to add more commands
+    endfunction
+    augroup lsp_install
+        au!
+        " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    augroup END
+    let g:lsp_diagnostics_enabled = 1
+    let g:lsp_diagnostics_signs_enabled = 0
+    let g:lsp_diagnostics_echo_cursor = 1
+    let g:asyncomplete_auto_popup = 1
+    let g:asyncomplete_auto_completeopt = 0
+    let g:asyncomplete_popup_delay = 200
+    let g:lsp_text_edit_enabled = 1
+'''
 # LSPの導入を簡単にするやつ
 [[plugins]]
 repo='mattn/vim-lsp-settings'
 on_source = 'vim-lsp'
-hook_add='''
-    " signcolumns無効化
-    let g:lsp_diagnostics_signs_enabled = 0
-    " カーソルを当てるとエラー詳細
-    let g:lsp_diagnostics_echo_cursor = 1
-'''
 hook_post_source = '''
   " エラーハイライト
   highlight link LspWarningHighlight Error
