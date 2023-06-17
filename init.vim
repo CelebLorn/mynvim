@@ -30,6 +30,8 @@ set smartindent
 " 無名レジスタとクリップボードを同期
 set clipboard+=unnamed
 
+" ターミナルの色
+set termguicolors
 
 " スワップファイルを無効化
 set noswapfile
