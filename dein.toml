@@ -124,7 +124,6 @@ hook_add='''
     \     'ff': {
     \       'startFilter': v:true,
     \       'prompt': '> ',
-    \       'split': 'floating',
     \     }
     \   },
     \   'columnParams': {
