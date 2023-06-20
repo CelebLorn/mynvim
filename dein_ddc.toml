@@ -120,10 +120,11 @@ hook_source='''
             \ }
             \})
 
+    " 補完実行判定関数
     function! JudgeDoComplation() abort
         if col('.') <= 1
-            return v:true
-        else if getline('.')[col('.') - 2] =~# '\s'
+            return v:true   
+        else if getline('.')[col('.') - 2] =~# "\s"
             return v:true
         else if getline('.')[col('.') - 2] =~# ';'
             return v:true
