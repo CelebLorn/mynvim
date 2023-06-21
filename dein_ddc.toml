@@ -124,9 +124,9 @@ hook_source='''
     function! JudgeDoComplation() abort
         if col('.') <= 1
             return v:true   
-        else if getline('.')[col('.') - 2] =~# "\s"
+        elseif getline('.')[col('.') - 2] =~# '\s'
             return v:true
-        else if getline('.')[col('.') - 2] =~# ';'
+        elseif getline('.')[col('.') - 2] =~# ';'
             return v:true
         endif
         return v:false
