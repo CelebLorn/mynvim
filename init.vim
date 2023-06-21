@@ -165,6 +165,7 @@ let $MY_DEIN_TOML = $VIM_CONFIG_DIR . '/dein.toml'
 let $MY_DEIN_TOML_LAZY = $VIM_CONFIG_DIR . '/dein_lazy.toml'
 let $MY_DEIN_TOML_LOCAL = $VIM_CONFIG_DIR . '/dein_local.toml'
 let $MY_DEIN_TOML_DDC = $VIM_CONFIG_DIR . '/dein_ddc.toml'
+let $MY_DEIN_TOML_DDU = $VIM_CONFIG_DIR . '/dein_ddu.toml'
 
 " 設定開始
 if dein#load_state(g:dein_dir)
@@ -176,7 +177,9 @@ if dein#load_state(g:dein_dir)
         call dein#load_toml($MY_DEIN_TOML_LOCAL, {'lazy': 0})
     endif
 	call dein#load_toml($MY_DEIN_TOML_LAZY, {'lazy': 1})
+
 	call dein#load_toml($MY_DEIN_TOML_DDC, {'lazy': 1})
+	call dein#load_toml($MY_DEIN_TOML_DDU, {'lazy': 1})
 
     " 設定終了
     call dein#end()
