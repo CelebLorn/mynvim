@@ -78,10 +78,10 @@ hook_source='''
     " Use around source.
     " https://github.com/Shougo/ddc-around
     call ddc#custom#patch_global('sources', [
+                \ 'vim-lsp',
                 \ 'around',
                 \ 'cmdline',
                 \ 'cmdline-history',
-                \ 'vim-lsp',
                 \ ])
 
     " Change source options
@@ -103,17 +103,17 @@ hook_source='''
 
     call ddc#custom#patch_filetype(['mugen'],'sourceOptions', {
           \ '_': {'matchers': ['matcher_fuzzy']},
-          \ 'dictionary': {'mark': 'D'},
+          \ 'dictionary': {'mark': 'Dct'},
           \ })
 
     call ddc#custom#patch_filetype(['mugen'],'sourceParams', {
             \ 'dictionary': {'dictPaths': 
             \ [
-            \   $VIM_CONFIG_DIR .. '/dict/mugen_trigger.dict',
-            \   $VIM_CONFIG_DIR .. '/dict/mugen_statectrler.dict',
-            \   $VIM_CONFIG_DIR .. '/dict/mugen_param.dict',
-            \   $VIM_CONFIG_DIR .. '/dict/mugen_mytrig.dict',
-            \   $VIM_CONFIG_DIR .. '/dict/mugen_redirect.dict',
+            \   expand($VIM_CONFIG_DIR .. '/dict/mugen_trigger.dict'),
+            \   expand($VIM_CONFIG_DIR .. '/dict/mugen_statectrler.dict'),
+            \   expand($VIM_CONFIG_DIR .. '/dict/mugen_param.dict'),
+            \   expand($VIM_CONFIG_DIR .. '/dict/mugen_mytrig.dict'),
+            \   expand($VIM_CONFIG_DIR .. '/dict/mugen_redirect.dict'),
             \ ],
             \ 'smartCase': v:true,
             \ 'showMenu': v:false,
@@ -153,7 +153,7 @@ hook_source='''
             \     'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
             \   ],
             \   cmdlineSources: {
-            \     ':': ['cmdline', 'cmdline-history', 'around']
+            \     ':': ['cmdline', 'cmdline-history']
             \   },
             \ })
     nnoremap :       <Cmd>call CommandlinePre()<CR>:
@@ -186,13 +186,17 @@ hook_source='''
 
 [[plugins]]
 repo='hrsh7th/vim-vsnip'
-on_source = 'vim-vsnip-integ'
+on_source = 'ddc.vim'
+hook_add='''
+    " スニペットファイルの場所
+    let g:vsnip_snippet_dir=$VIM_CONFIG_DIR .. '/snippets'
+    inoremap <expr> <C-k> vsnip#expandable() ? "<Plug>(vsnip-expand)" : "<C-k>"
+'''
 
 [[plugins]]
 repo='hrsh7th/vim-vsnip-integ'
 on_source = 'ddc.vim'
-depends=['vim-vsnip']
-hook_add='''
+hook_source='''
     autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
 '''
 

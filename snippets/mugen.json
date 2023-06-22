@@ -1,0 +1,16 @@
+{
+    "State": {
+        "prefix": "stt",
+        "body": [
+            "[state ]",
+            "type=$0",
+            "ignorehitpause=1"
+        ]
+    },
+    "Statedef": {
+        "prefix": "def",
+        "body": [
+            "[statedef $0]"
+        ]
+    }
+}
