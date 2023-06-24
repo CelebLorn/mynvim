@@ -10,9 +10,9 @@ on_source = 'ddu.vim'
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 on_source = 'ddu.vim'
-# 部分文字列一致
+# 曖昧一致
 [[plugins]]
-repo = 'Shougo/ddu-filter-matcher_substring'
+repo = 'Bakudankun/ddu-filter-matchfuzzy'
 on_source = 'ddu.vim'
 # ファイル操作
 [[plugins]]
@@ -37,21 +37,20 @@ hook_source='''
     \       'name': 'file_rec',
     \       'params': {
     \         'ignoredDirectories': ['.git', 'node_modules', 'vendor', '.next', '.vscode']
-    \       }
+    \       },
     \     }
-    \   ],
-    \   'columns': [
-    \       'icon_filename'
     \   ],
     \   'sourceOptions': {
     \     '_': {
-    \       'matchers': ['matcher_substring'],
+    \       'matchers': ['matcher_matchfuzzy'],
     \       'columns': ['icon_filename_for_ff'],
     \     },
     \   },
     \   'filterParams': {
-    \     'matcher_substring': {
-    \       'highlightMatched': 'Title',
+    \     'matcher_matchfuzzy': {
+    \       'highlightMatched': 'Search',
+    \       'limit': 100,
+    \       'matchseq': v:true,
     \     },
     \   },
     \   'kindOptions': {
@@ -61,6 +60,9 @@ hook_source='''
     \   },
     \   'uiParams': {
     \     'ff': {
+    \       'split': 'vertical',
+    \       'splitDirection': 'topleft',
+    \       'winWidth': 40,
     \       'startFilter': v:false,
     \       'prompt': '> ',
     \     }
