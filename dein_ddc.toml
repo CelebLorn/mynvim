@@ -68,20 +68,29 @@ hook_source='''
     " Use matcher_fuzzy and sorter_fuzzy.
     call ddc#custom#patch_global('sourceOptions', {
           \ '_': {
-          \   'matchers': ['matcher_fuzzy'],
-          \   'sorters': ['sorter_fuzzy'],
-          \   'converters': ['converter_remove_overlap'],
-          \},
+          \     'matchers': ['matcher_fuzzy'],
+          \     'sorters': ['sorter_fuzzy'],
+          \     'converters': ['converter_remove_overlap','converter_fuzzy'],
+          \     },
           \ })
 
     " Customize global setting
-    call ddc#custom#patch_global('sources', [
-                \ 'vim-lsp',
-                \ 'cmdline',
-                \ 'cmdline-history',
-                \ 'around',
-                \ ])
+    call ddc#custom#patch_global({
+          \ 'sources': [
+          \     'vim-lsp',
+          \     'around',
+          \     ],
+          \ 'cmdlineSources': {
+          \     ':': ['cmdline','cmdline-history']
+          \     },
+          \ })
 
+    " 補完イベントの設定
+    call ddc#custom#patch_global({
+            \   'autoCompleteEvents': [
+            \     'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
+            \   ],
+            \ })
     " Change source options
     call ddc#custom#patch_global('sourceOptions', {
           \ 'around': {'mark': 'Ard'},
@@ -144,16 +153,6 @@ hook_source='''
               \ )
     
 
-    " コマンド補完
-    call ddc#custom#patch_global(#{
-            \   ui: 'pum',
-            \   autoCompleteEvents: [
-            \     'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
-            \   ],
-            \   cmdlineSources: {
-            \     ':': ['cmdline', 'cmdline-history']
-            \   },
-            \ })
     nnoremap :       <Cmd>call CommandlinePre()<CR>:
 
     function! CommandlinePre() abort
