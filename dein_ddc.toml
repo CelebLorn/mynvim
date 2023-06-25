@@ -79,6 +79,7 @@ hook_source='''
           \ 'sources': [
           \     'vim-lsp',
           \     'around',
+          \     'vsnip',
           \     ],
           \ 'cmdlineSources': {
           \     ':': ['cmdline','cmdline-history']
@@ -100,13 +101,14 @@ hook_source='''
           \     'mark': 'LSP',
           \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
           \     },
+          \ 'vsnip': {'mark': 'Snp', 'minAutoCompleteLength': 1},
           \ })
     call ddc#custom#patch_global('sourceParams', {
           \ 'around': {'maxSize': 500},
           \ })
 
     " mugen独自の設定
-    call ddc#custom#patch_filetype(['mugen'],'sources', ['dictionary'])
+    call ddc#custom#patch_filetype(['mugen'],'sources', ['dictionary','vsnip'])
 
     call ddc#custom#patch_filetype(['mugen'],'sourceOptions', {
           \ '_': {'matchers': ['matcher_fuzzy']},
