@@ -265,3 +265,9 @@ hook_post_source = '''
 # LSPのアイコン
 [[plugins]]
 repo='mattn/vim-lsp-icons'
+
+# ハイライト
+[[plugins]]
+repo='sheerun/vim-polyglot'
+marged=0
+
