@@ -109,7 +109,7 @@ if has('win32') || has('win64')
     else
         set shell=powershell
     endif
-end
+endif
 set shellcmdflag=-c
 set shellquote="
 
