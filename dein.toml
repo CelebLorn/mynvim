@@ -271,3 +271,59 @@ repo='mattn/vim-lsp-icons'
 repo='sheerun/vim-polyglot'
 marged=0
 
+# スタート画面
+[[plugins]]
+repo='mhinz/vim-startify'
+hook_add='''
+    " いくつファイル履歴を出すか
+    let g:startify_files_number = 5
+    " ファイルリスト
+    let g:startify_list_order = [
+            \ ['Recently File : '],
+            \ 'files',
+            \ ['Recently Dir : '],
+            \ 'dir',
+            \ ['Session : '],
+            \ 'sessions',
+            \ ['Bookmark : '],
+            \ 'bookmarks',
+            \ ]
+    " ブックマークリスト
+    let g:startify_bookmarks = [
+            \ $MYVIMRC,
+            \ $MY_DEIN_TOML,
+            \ $MY_DEIN_TOML_LAZY,
+            \ $MY_DEIN_TOML_DDC,
+            \ ]
+
+    " AAの中央揃え
+    function! s:filter_header(lines) abort
+        let longest_line   = max(map(copy(a:lines), 'len(v:val)'))
+        let centered_lines = map(copy(a:lines),
+            \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+        return centered_lines
+    endfunction
+
+    " スタート画面に出すAA
+    let g:startify_custom_header = s:filter_header([
+		 \ '             DZZZZZ$ZZZZZN              ',
+		 \ '         ZZ????????????????IZO          ',
+		 \ '      NZ?????????????????????IIZ        ',
+		 \ '     Z????????????????I    IIIIIIO      ',
+		 \ '   Z7??????????~,          ?IIIIIIZO    ',
+		 \ '  Z????????        :IIIIIIIIIIIIIII7O   ',
+		 \ ' 8$?????????    I?IIIIIIIIIIIIIIIIIIO   ',
+		 \ ' Z????????????I     IIIIIIIIIIIIIIIIIO  ',
+		 \ ' Z??????????III??,      IIIIIIIIIIIIIO  ',
+		 \ ' Z???????I         ,IIIIIIIIIIIIIIIIIO  ',
+		 \ ' Z????II       IIIIIIIIIIIIIIIIIIIIIIO  ',
+		 \ ' O$?III+      IIIIIIIIIIIIIIIIIIIIIION  ',
+		 \ '  ZIIIIII+         ~+I7I7IIIIIIIIII78   ',
+		 \ '   OIIIIIIIIIII               IIIIZ8    ',
+		 \ '    NOIIIIIIIIII7II      IIIIIIII8      ',
+		 \ '      DOIIIIIIIIIIIIIIIIIIIIIII8        ',
+		 \ '         OOIIIIIIIIIIIIIIIII88          ',
+		 \ '             8OOOZ$7$Z88O8              ',
+		 \ '                                        ',
+        \ ])
+'''
