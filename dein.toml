@@ -51,15 +51,6 @@ hook_add='''
 '''
 
 
-# migemo検索 
-[[plugins]] 
-repo='rhysd/migemo-search.vim' 
-hook_add=''' 
-	if executable('cmigemo') 
-		cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>" 
-	endif 
-''' 
-
 # カッコとか関連をsaコマンドで行えるように
 [[plugins]]
 repo='machakann/vim-sandwich'
@@ -306,6 +297,8 @@ hook_add='''
 
     " スタート画面に出すAA
     let g:startify_custom_header = s:filter_header([
+         \ '殺伐としたターミナルにサクラエディタが！',
+         \ '                                        ',
 		 \ '             DZZZZZ$ZZZZZN              ',
 		 \ '         ZZ????????????????IZO          ',
 		 \ '      NZ?????????????????????IIZ        ',
@@ -313,11 +306,11 @@ hook_add='''
 		 \ '   Z7??????????~,          ?IIIIIIZO    ',
 		 \ '  Z????????        :IIIIIIIIIIIIIII7O   ',
 		 \ ' 8$?????????    I?IIIIIIIIIIIIIIIIIIO   ',
-		 \ ' Z????????????I     IIIIIIIIIIIIIIIIIO  ',
-		 \ ' Z??????????III??,      IIIIIIIIIIIIIO  ',
-		 \ ' Z???????I         ,IIIIIIIIIIIIIIIIIO  ',
-		 \ ' Z????II       IIIIIIIIIIIIIIIIIIIIIIO  ',
-		 \ ' O$?III+      IIIIIIIIIIIIIIIIIIIIIION  ',
+		 \ ' Z????????????I     IIIIIIIIIIIIIIIIIO   ＿人人人人人人人人人人人＿ ',
+		 \ ' Z??????????III??,      IIIIIIIIIIIIIO   ＞                      ＜ ',
+		 \ ' Z???????I         ,IIIIIIIIIIIIIIIIIO   ＞  恋に落ちるエディタ  ＜ ',
+		 \ ' Z????II       IIIIIIIIIIIIIIIIIIIIIIO   ＞                      ＜ ',
+		 \ ' O$?III+      IIIIIIIIIIIIIIIIIIIIIION   ￣Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^Y^￣ ',
 		 \ '  ZIIIIII+         ~+I7I7IIIIIIIIII78   ',
 		 \ '   OIIIIIIIIIII               IIIIZ8    ',
 		 \ '    NOIIIIIIIIII7II      IIIIIIII8      ',
@@ -325,5 +318,10 @@ hook_add='''
 		 \ '         OOIIIIIIIIIIIIIIIII88          ',
 		 \ '             8OOOZ$7$Z88O8              ',
 		 \ '                                        ',
+		 \ '       __  ___   _ _________   _        ',
+		 \ '       \ \/ / | | |_  /_  / | | |       ',
+		 \ '        >  <| |_| |/ / / /| |_| |       ',
+		 \ '       /_/\_\\__, /___/___|\__, |       ',
+		 \ '             |___/         |___/        ',
         \ ])
 '''
