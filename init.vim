@@ -54,6 +54,9 @@ set autochdir
 " ポップアップメニューの最大表示数
 set pumheight=10
 
+" コマンド入力受付時間を短めに
+set timeoutlen=500
+
 " ターミナルを開いたらに常にinsertモードに入る
 autocmd TermOpen * :startinsert
 " ターミナルでは行番号を非表示にする
